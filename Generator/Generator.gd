@@ -1,12 +1,10 @@
 extends Node2D
 # Declare member variables here. Examples:
-enum integerTest{
-	destroyed,
-	broken,
-	normal
-}
+onready var utilsColor = preload("res://Utils/Color.gd").new()
+var Battery = preload("res://Battery/Battery.tscn")
+export (int) var nbOfBatteries = 4
 
-enum LiveState {
+enum liveState {
 	defeat,
 	alive,
 	victory
@@ -16,8 +14,12 @@ var elapsedTime = 0.0
 var refreshGeneratorHpTimer = 10.0
 var hp = 50
 var color = 0
-var batteriesState = [integerTest.normal, integerTest.destroyed, integerTest.broken, integerTest.normal]
+var batteries = []
 
+func _ready():
+	for i in range(nbOfBatteries):
+		batteries.append(Battery.instance())
+		self.add_child(batteries[i])
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	elapsedTime += delta
@@ -30,10 +32,10 @@ func _process(delta):
 
 func checkGameState() -> int:
 	if hp <= 0 :
-		return LiveState.defeat
+		return liveState.defeat
 	if hp >= 100 :
-		return LiveState.victory
-	return LiveState.alive
+		return liveState.victory
+	return liveState.alive
 
 func refreshGeneratorHp() -> int:	
 	elapsedTime = 0.0
@@ -42,8 +44,8 @@ func refreshGeneratorHp() -> int:
 func getBatterisState() -> int:
 	var availableBatteries = 4
 	
-	for state in batteriesState :
-		if state == integerTest.destroyed:
+	for battery in batteries:
+		if battery.getState() == battery.State.DESTROYED:
 			availableBatteries -= 1
 	return availableBatteries
 
