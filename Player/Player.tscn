@@ -4,8 +4,8 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 19.3325
-height = 46.9135
+radius = 8.2169
+height = 25.7545
 
 [node name="Player" type="RigidBody2D"]
 mode = 2
@@ -16,6 +16,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = -1.5708
+scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 frame = 1
 playing = true
