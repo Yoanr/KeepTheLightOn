@@ -33,6 +33,7 @@ func _process(delta):
 
 func take():
 	_setState(CrystalState.active)
+	owned_state = OwnedState.owned
 	pass
 
 # Takes a force (float) and direction (Vector2, normalized or not)
