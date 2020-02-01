@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 # Declare member variables here. Examples:
+var _generator
 var _direction
 var _generatorPosition
 var _randomGen
@@ -23,6 +24,7 @@ func _process(delta):
 	pass
 
 func setTarget(generator):
+	_generator = generator
 	_generatorPosition = generator.position
 	_follow(_generatorPosition)
 	_rotateSprite()
@@ -38,32 +40,46 @@ func _rotateSprite():
 	pass
 
 func onBodyEntered(body) :
+	print("zombie body entered")
 	if(body.is_in_group("crystal")) :
 		var crystal = body
-		if crystal.isACtive():
+		if crystal.isActive():
 			print("zombie entered by active crystal, will die")
 			_die()
 			
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie kicked player")
 			player.disable()
+			
+	if(body.is_in_group("generator")) :
+		var generator = body
+		print("zombie kicked generator")
+		_generator.hit()
+		_commitSuicide()
 
 func onTriggerEntered(body):
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie follows player")
 			_follow(player.position)
+		
+	if(body.get_parent().is_in_group("generator")) :
+		var generator = body
+		print("zombie follows generator")
+		_follow(generator.position)
  
 func onTriggerExited(body):
-	print("zombie trigger exited")
 	_follow(_generatorPosition)
 
 func _die():
 	# todo fx
 	#
-	
+	print("zombie died")
 	# remove from scene
 	get_parent().remove_child(self)
+
+func _commitSuicide():
+	_die()
