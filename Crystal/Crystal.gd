@@ -21,19 +21,18 @@ var owned_state = OwnedState.not_owned
 func _ready():
 	add_to_group("crystal")
 	# Initialize
-	setState(CrystalState.inactive)
+	_setState(CrystalState.inactive)
 	setColor(utils.ColorEnum.WHITE)
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Called every frame
 func _process(delta):
 	if _state == CrystalState.active and linear_velocity == Vector2.ZERO:
-		setState(CrystalState.inactive)
+		_setState(CrystalState.inactive)
 	pass
 
 func take():
-	setState(CrystalState.active)
-	owned_state = OwnedState.owned
+	_setState(CrystalState.active)
 	pass
 
 # Takes a force (float) and direction (Vector2, normalized or not)
@@ -43,7 +42,8 @@ func throw(force, direction):
 	owned_state = OwnedState.not_owned
 	pass
 
-func setState(newState):
+# Change crystal state
+func _setState(newState):
 	if newState == CrystalState.active :
 		_state = CrystalState.active
 		# change sprite here
