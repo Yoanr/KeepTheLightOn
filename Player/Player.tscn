@@ -4,15 +4,21 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 11.425
+height = 18.7106
 
 [node name="Player" type="RigidBody2D"]
 gravity_scale = 0.0
+contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.118908, 4.70877e-06 )
-scale = Vector2( 0.165228, 0.305546 )
+rotation = -1.5708
+scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
+frame = 1
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.88997, 1.02261 )
 shape = SubResource( 1 )
