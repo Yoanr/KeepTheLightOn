@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Crystal/Crystal.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Enemies/Zombie.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ZombiesManager/ZombiesManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Generator/Generator.tscn" type="PackedScene" id=4]
 
@@ -11,16 +11,13 @@
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls_StaticBody2D"]
 position = Vector2( 511.384, 297.185 )
-polygon = PoolVector2Array( -511.228, 304.615, 518.361, 301.751, 516.929, -299.678, -512.659, -298.246, -539.867, -335.477, 561.321, -345.501, 547, 321.798, -541.148, 324.753, -535.979, -333.056, -511.424, -295.578 )
+polygon = PoolVector2Array( -485.587, 761.673, 1388.8, 754.408, 1408.17, -291.763, -512.659, -298.246, -539.867, -335.477, 1459.03, -320.823, 1471.14, 788.311, -538.865, 827.058, -535.979, -333.056, -511.424, -295.578 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 513.857, 299.505 )
 
 [node name="Crystal" parent="." instance=ExtResource( 1 )]
 position = Vector2( 371.694, 285.194 )
-
-[node name="Zombie" parent="." instance=ExtResource( 2 )]
-position = Vector2( 164.581, 387.742 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 813.743, 427.377 )
@@ -30,3 +27,6 @@ position = Vector2( 621.639, 172.678 )
 _id_player = 2
 
 [node name="Generator" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 540 )
+
+[node name="ZombiesManager" parent="." instance=ExtResource( 2 )]
