@@ -34,17 +34,17 @@ func setBatteries(batteryId):
 	var position = Vector2(0.0, 0.0)
 	
 	if batteryId == 0:
-		position.x = -460.0
+		position.x = -912.0
 		position.y = 0.0
 	if batteryId == 1:
-		position.x = 460.0
+		position.x = 912.0
 		position.y = 0.0
 	if batteryId == 2:
 		position.x = 0.0
-		position.y = 260.0
+		position.y = -492.0
 	if batteryId == 3:
 		position.x = 0.0
-		position.y = -260.0 
+		position.y = 492.0 
 	batteries[batteryId].translate(position)
 	batteries[batteryId].set_texture(preload("res://icon.png"))
 	pass
