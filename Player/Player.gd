@@ -39,7 +39,7 @@ func _process(delta):
 	linear_velocity = move_input.normalized() * speed
 	rotation = last_rot
 	if(move_input != Vector2.ZERO):
-		rotation = move_input.angle() + PI/2
+		rotation = move_input.angle()
 		last_rot = rotation
 	
 	
@@ -52,19 +52,23 @@ func _process(delta):
 
 
 func throw(move_input:Vector2):
+	$AnimatedSprite.play("default")
 	crystal.mode = RigidBody2D.MODE_RIGID
-	crystal.throw(throw_strength, move_input)
+	crystal.throw(throw_strength, Vector2(cos(last_rot), sin(last_rot)))
 	remove_child(pj)
 	pj.queue_free()
+	pj = null
 	add_collision_exception_with(crystal)
 	yield(get_tree().create_timer(0.5), "timeout")
 	remove_collision_exception_with(crystal)
 	crystal = null
+	
 
 
 func body_entered(body):
 	if(body.is_in_group("crystal") and !crystal):
 		if(body.owned_state == 0):
+			$AnimatedSprite.play("hold")
 			crystal = body
 			crystal.take()
 			pj = PinJoint2D.new()

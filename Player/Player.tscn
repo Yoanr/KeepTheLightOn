@@ -4,8 +4,8 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 19.101
-height = 24.2365
+radius = 19.3325
+height = 46.9135
 
 [node name="Player" type="RigidBody2D"]
 mode = 2
@@ -17,6 +17,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = -1.5708
 frames = ExtResource( 1 )
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
