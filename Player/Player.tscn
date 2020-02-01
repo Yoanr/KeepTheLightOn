@@ -4,8 +4,8 @@
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 19.3325
-height = 46.9135
+radius = 10.2953
+height = 19.5734
 
 [node name="Player" type="RigidBody2D"]
 mode = 2
