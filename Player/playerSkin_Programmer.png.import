@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/playerSkin_Programmer.png-b777c0f64ceeb9350f0895147e175f0b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://Player/playerSkin_Programmer.png"
+dest_files=[ "res://.import/playerSkin_Programmer.png-b777c0f64ceeb9350f0895147e175f0b.stex" ]
 
 [params]
 
