@@ -6,9 +6,12 @@
 [sub_resource type="CapsuleShape2D" id=1]
 
 [node name="Player" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.118908, 4.70877e-06 )
+scale = Vector2( 0.165228, 0.305546 )
 frames = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
