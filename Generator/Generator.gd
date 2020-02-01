@@ -17,6 +17,7 @@ var color = 0
 var batteries = []
 
 func _ready():
+	$RigidBody2D.connect("body_entered",self, "collide")
 	for i in range(nbOfBatteries):
 		batteries.append(Battery.instance())
 		self.add_child(batteries[i])
@@ -27,7 +28,6 @@ func _process(delta):
 	if elapsedTime >= refreshGeneratorHpTimer:
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
-	connect("body_entered",self, "collide")
 	checkGameState()
 
 func setBatteries(batteryId):

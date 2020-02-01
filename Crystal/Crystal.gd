@@ -26,7 +26,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame
-func _process(delta):
+func _process(_delta):
 	if _state == CrystalState.active and linear_velocity == Vector2.ZERO:
 		_setState(CrystalState.inactive)
 	pass
