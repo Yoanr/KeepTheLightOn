@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ZombieLeft.png-8ab4a1ce1843d00491408b0594b4f95a.stex"
+path="res://.import/ZombieLeft.png-8804139d0474ed814a151fde57326e50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/Assets/ZombieLeft.png"
-dest_files=[ "res://.import/ZombieLeft.png-8ab4a1ce1843d00491408b0594b4f95a.stex" ]
+source_file="res://Zombie/Assets/ZombieLeft.png"
+dest_files=[ "res://.import/ZombieLeft.png-8804139d0474ed814a151fde57326e50.stex" ]
 
 [params]
 

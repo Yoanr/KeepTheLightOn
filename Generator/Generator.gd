@@ -18,6 +18,8 @@ var batteries = []
 
 func _ready():
 	$RigidBody2D.connect("body_entered",self, "collide")
+	add_to_group("generator")
+	
 	for i in range(nbOfBatteries):
 		batteries.append(Battery.instance())
 		self.add_child(batteries[i])
