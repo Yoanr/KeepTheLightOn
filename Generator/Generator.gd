@@ -15,7 +15,7 @@ enum LiveState {
 var elapsedTime = 0.0
 var refreshGeneratorHpTimer = 10.0
 var hp = 50
-var color = "red"
+var color = 0
 var batteriesState = [integerTest.normal, integerTest.destroyed, integerTest.broken, integerTest.normal]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,6 +25,7 @@ func _process(delta):
 	if elapsedTime >= refreshGeneratorHpTimer:
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
+		changeColor()
 	checkGameState()
 
 func checkGameState() -> int:
@@ -45,3 +46,9 @@ func getBatterisState() -> int:
 		if state == integerTest.destroyed:
 			availableBatteries -= 1
 	return availableBatteries
+
+func changeColor() :
+	var oldColor = color
+	while color == oldColor :
+		color = randi() % 6
+	print("[oldColor] = " + str(oldColor) + " [color] = " + str(color))
