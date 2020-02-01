@@ -3,6 +3,7 @@ extends Node2D
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 var Battery = preload("res://Battery/Battery.tscn")
 export (int) var nbOfBatteries = 4
+export (int) var zombieDamage = 5
 
 enum liveState {
 	defeat,
@@ -17,7 +18,7 @@ var color = 0
 var batteries = []
 
 func _ready():
-	$RigidBody2D.connect("body_entered",self, "collide")
+	#$RigidBody2D.connect("body_entered",self, "collide")
 	add_to_group("generator")
 	
 	for i in range(nbOfBatteries):
@@ -77,6 +78,7 @@ func changeColor() :
 		color = randi() % 6
 	print("[oldColor] = " + str(oldColor) + " [color] = " + str(color))
 
-func collide(body) ->bool:
-	print("COLLIDE")
-	return true
+func hit() :
+	hp -= zombieDamage
+	if hp < 0 :
+		hp = 0
