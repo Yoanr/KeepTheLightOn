@@ -49,7 +49,7 @@ func onBodyEntered(body) :
 			
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie kicked player")
 			player.disable()
 			
@@ -62,7 +62,7 @@ func onBodyEntered(body) :
 func onTriggerEntered(body):
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie follows player")
 			_follow(player.position)
 		

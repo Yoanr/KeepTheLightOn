@@ -6,11 +6,7 @@
 [ext_resource path="res://Zombie/Assets/ZombieLeft.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-<<<<<<< HEAD:Enemies/Zombie.tscn
-radius = 27.1685
-=======
 radius = 25.4105
->>>>>>> df654ac575600c8814710f2a4c5434a8484fb97a:Zombie/Zombie.tscn
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -21,11 +17,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
-<<<<<<< HEAD:Enemies/Zombie.tscn
-radius = 27.1871
-=======
-radius = 116.241
->>>>>>> df654ac575600c8814710f2a4c5434a8484fb97a:Zombie/Zombie.tscn
+radius = 63.4722
 
 [node name="Zombie" type="RigidBody2D"]
 mode = 2

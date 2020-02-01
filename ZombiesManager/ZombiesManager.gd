@@ -1,10 +1,10 @@
 extends Node2D
 
 # makes sure it's loaded first
+var Zombie = preload("res://Zombie/Zombie.tscn")
 onready var Generator = preload("res://Generator/Generator.tscn")
 onready var Batterie = preload("res://Battery/Battery.tscn")
 
-var Zombie = preload("res://Zombie/Zombie.tscn")
 enum Difficulty {SWEET, REGULAR, SPICY}
 
 # Declare member variables here.
