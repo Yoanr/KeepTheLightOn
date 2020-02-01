@@ -14,4 +14,4 @@ polygon = PoolVector2Array( -456.258, 257.02, 461.423, 260.867, 449.88, -268.194
 position = Vector2( 513.857, 299.505 )
 
 [node name="Crystal" parent="." instance=ExtResource( 1 )]
-position = Vector2( 387.595, 284.824 )
+position = Vector2( 463.748, 343.774 )
