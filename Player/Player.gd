@@ -4,18 +4,24 @@ extends RigidBody2D
 export (int) var id_player = 1
 export (float) var speed = 500
 var throw_strength: int = 0
-var has_crystal: bool = false
 var crystal
+var pj: PinJoint2D
 var last_rot: float = 0
+var is_disabled: bool = false
+var disable_time: float = 2.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("player")
 	connect("body_entered",self,"body_entered")
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if(crystal):
+		crystal.mode = RigidBody2D.MODE_CHARACTER
 	
 	# Get inputs
 	var id: String = "P" + String(id_player)
@@ -28,22 +34,43 @@ func _process(delta):
 	var is_releasing_throw:bool = Input.is_action_just_released(id + "_Throw")
 	
 	# Move player
-	linear_velocity = move_input * speed
+	linear_velocity = move_input.normalized() * speed
 	rotation = last_rot
 	if(move_input != Vector2.ZERO):
 		rotation = move_input.angle() + PI/2
 		last_rot = rotation
 	
 	
-	if(is_loading_throw and has_crystal):
-		throw_strength += 1
+	if(is_loading_throw and crystal and pj):
+		throw_strength += 10
 	
-	if(is_releasing_throw and has_crystal):
+	if(is_releasing_throw and crystal and pj):
 		throw(move_input)
+		throw_strength = 0
 
 
 func throw(move_input:Vector2):
+	crystal.mode = RigidBody2D.MODE_RIGID
 	crystal.throw(throw_strength, move_input)
+	remove_child(pj)
+	pj.queue_free()
+	add_collision_exception_with(crystal)
+	yield(get_tree().create_timer(0.5), "timeout")
+	remove_collision_exception_with(crystal)
+	crystal = null
+
 
 func body_entered(body):
-	pass
+	if(body.is_in_group("crystal") and !crystal):
+		crystal = body
+		pj = PinJoint2D.new()
+		add_child(pj)
+		pj.node_a = self.get_path()
+		pj.node_b = crystal.get_path()
+
+
+func disable():
+	if(!is_disabled):
+		is_disabled = true
+		yield(get_tree().create_timer(disable_time), "timeout")
+		is_disabled = false
