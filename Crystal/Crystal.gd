@@ -6,19 +6,23 @@ enum CrystalState{
 	active
 }
 
+enum OwnedState{
+	not_owned,
+	owned
+}
+	
+
 # Member variables here
 var _color
 var _state = CrystalState.inactive
-
+var owned_state = OwnedState.not_owned
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("crystal")
 	# Initialize
 	setState(CrystalState.inactive)
 	setColor(utils.ColorEnum.WHITE)
-	
-	# Test
-	throw(800, Vector2(-2,2))
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,12 +33,14 @@ func _process(delta):
 
 func take():
 	setState(CrystalState.active)
+	owned_state = OwnedState.owned
 	pass
 
 # Takes a force (float) and direction (Vector2, normalized or not)
 func throw(force, direction):
 	var impulse = force * direction.normalized()
 	apply_central_impulse(impulse)
+	owned_state = OwnedState.not_owned
 	pass
 
 func setState(newState):
