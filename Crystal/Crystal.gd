@@ -15,6 +15,7 @@ var _state = CrystalState.inactive
 func _ready():
 	# Initialize
 	setState(CrystalState.inactive)
+	setColor(utils.ColorEnum.WHITE)
 	
 	# Test
 	throw(800, Vector2(-2,2))
