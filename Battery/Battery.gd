@@ -5,7 +5,7 @@ var _colorRequired
 var _state
 var _elapsedTime = 0.0
 
-enum _State {FUNCTIONNAL, BROKEN, DESTROYED}
+enum State {FUNCTIONNAL, BROKEN, DESTROYED}
 
 export (float) var changeStateTime = 5.0
 
@@ -14,18 +14,17 @@ func _ready():
 	add_to_group("battery")
 	connect("body_entered",self,"_onBodyEntered")
 	_colorRequired = utilsColor.randomColor()
-	_state = _State.FUNCTIONNAL
+	_state = State.FUNCTIONNAL
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	_elapsedTime += delta
-	print("_elapsedTime: ",_elapsedTime)
 	_manageState()
-	print("state: ",_state)
 
 func _manageState():
 	if(_elapsedTime >= changeStateTime):
-		if(_state != _State.DESTROYED):
+		if(_state != State.DESTROYED):
+			print("state: ", _state)
 			_elapsedTime = 0.0
 			_state = _state + 1
 
