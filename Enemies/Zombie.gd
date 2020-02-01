@@ -14,8 +14,8 @@ func _ready():
 	$Area2D.connect("body_exited",self,"onTriggerExited")
 
 	# to test individual zombie, use this to initialize it :
-	#_generatorPosition = Vector2(1200, 0)
-	#_follow(_generatorPosition)
+	_generatorPosition = Vector2(1200, 0)
+	_follow(_generatorPosition)
 
 func _process(delta):
 	linear_velocity = _direction.normalized() * speed
@@ -39,20 +39,20 @@ func _rotateSprite():
 func onBodyEntered(body) :
 	if(body.is_in_group("crystal")) :
 		var crystal = body
-		if crystal.isACtive():
+		if crystal.isActive():
 			print("zombie entered by active crystal, will die")
 			_die()
 			
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie kicked player")
 			player.disable()
 
 func onTriggerEntered(body):
 	if(body.is_in_group("player")) :
 		var player = body
-		if !player.isDisabled() :
+		if !player.is_disabled :
 			print("zombie follows player")
 			_follow(player.position)
  
