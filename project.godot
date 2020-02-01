@@ -19,6 +19,7 @@ config/name="GlobalGameJam2020"
 run/main_scene="res://Scenes/MainScene/MainScene.tscn"
 config/icon="res://icon.png"
 
+<<<<<<< HEAD
 [display]
 
 window/size/width=1920
@@ -137,6 +138,8 @@ P4_Throw={
  ]
 }
 
+=======
+>>>>>>> df654ac575600c8814710f2a4c5434a8484fb97a
 [rendering]
 
 environment/default_environment="res://default_env.tres"
