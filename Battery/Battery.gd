@@ -23,14 +23,23 @@ func _process(delta):
 	_manageState()
 	print("state: ",_state)
 
+func checkDowngradeState():
+	if(_state == _State.FUNCTIONNAL):
+		setStateToBroken()
+	elif(_state == _State.BROKEN):
+		setStateToDestroyed()
+
 func _manageState():
 	if(_elapsedTime >= changeStateTime):
-		if(_state != _State.DESTROYED):
-			_elapsedTime = 0.0
-			_state = _state + 1
+		checkDowngradeState()
 
 func _onBodyEntered(body):
-	pass
+	if(body.is_in_group("crystal")):
+		var crystal = body
+		if(crystal.getColor() == _colorRequired):
+			setStateToFunctionnal()
+		else:
+			checkDowngradeState()
 
 # Getter and Setter 
 func getColorRequired() -> int:
@@ -42,5 +51,15 @@ func setColorRequired(colorGiven):
 func getState() -> int:
 	return _state
 
-func setState(stateGiven):
-	_state = stateGiven
+func setStateToFunctionnal():
+	_elapsedTime = 0.0
+	_state = _State.FUNCTIONNAL
+
+func setStateToBroken():
+	_elapsedTime = 0.0
+	_state = _State.BROKEN
+
+func setStateToDestroyed():
+	_elapsedTime = 0.0
+	_state = _State.DESTROYED
+	
