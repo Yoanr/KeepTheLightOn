@@ -60,4 +60,5 @@ func setStateToBroken():
 func setStateToDestroyed():
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
+	emit_signal("batteryDestroyed",self)
 	
