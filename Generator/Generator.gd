@@ -11,19 +11,37 @@ enum LiveState {
 	alive,
 	victory
 }
+
+var elapsedTime = 0.0
+var refreshGeneratorHpTimer = 10.0
 var hp = 50
 var color = "red"
 var batteriesState = [integerTest.normal, integerTest.destroyed, integerTest.broken, integerTest.normal]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("current hp = " + str(hp))
-	print(checkGameState())
+	elapsedTime += delta
+	#print("elapsedTime = " + str(elapsedTime))
+	if elapsedTime >= refreshGeneratorHpTimer:
+		hp += refreshGeneratorHp()
+		print("HP = [" + str(hp) + "]")
+	checkGameState()
 
 func checkGameState() -> int:
-	if hp == 0 :
+	if hp <= 0 :
 		return LiveState.defeat
-	if hp == 100 :
+	if hp >= 100 :
 		return LiveState.victory
 	return LiveState.alive
 
+func refreshGeneratorHp() -> int:	
+	elapsedTime = 0.0
+	return getBatterisState() - 2
+
+func getBatterisState() -> int:
+	var availableBatteries = 4
+	
+	for state in batteriesState :
+		if state == integerTest.destroyed:
+			availableBatteries -= 1
+	return availableBatteries
