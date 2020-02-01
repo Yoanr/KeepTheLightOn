@@ -1,6 +1,8 @@
 extends Node2D
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 
+signal batteryDestroyed
+
 var _colorRequired
 var _state
 var _elapsedTime = 0.0
@@ -58,6 +60,7 @@ func setStateToBroken():
 	_state = State.BROKEN
 
 func setStateToDestroyed():
+	print("battery is destroyed")
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
 	emit_signal("batteryDestroyed",self)
