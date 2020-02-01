@@ -25,7 +25,7 @@ func _process(delta):
 	if elapsedTime >= refreshGeneratorHpTimer:
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
-		changeColor()
+	connect("body_entered",self, "collide")
 	checkGameState()
 
 func checkGameState() -> int:
@@ -49,6 +49,11 @@ func getBatterisState() -> int:
 
 func changeColor() :
 	var oldColor = color
+	
 	while color == oldColor :
 		color = randi() % 6
 	print("[oldColor] = " + str(oldColor) + " [color] = " + str(color))
+
+func collide(body) ->bool:
+	print("COLLIDE")
+	return true
