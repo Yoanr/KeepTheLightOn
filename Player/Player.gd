@@ -9,6 +9,7 @@ var pj: PinJoint2D
 var last_rot: float = 0
 var is_disabled: bool = false
 var disable_time: float = 2.0
+var get_cristal: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,8 +21,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if(crystal):
+	if(get_cristal):
 		crystal.mode = RigidBody2D.MODE_CHARACTER
+		get_cristal = false
 	
 	# Get inputs
 	var id: String = "P" + String(id_player)
@@ -62,11 +64,14 @@ func throw(move_input:Vector2):
 
 func body_entered(body):
 	if(body.is_in_group("crystal") and !crystal):
-		crystal = body
-		pj = PinJoint2D.new()
-		add_child(pj)
-		pj.node_a = self.get_path()
-		pj.node_b = crystal.get_path()
+		if(body.owned_state == 0):
+			crystal = body
+			crystal.take()
+			pj = PinJoint2D.new()
+			add_child(pj)
+			pj.node_a = self.get_path()
+			pj.node_b = crystal.get_path()
+			get_cristal = true
 
 
 func disable():
