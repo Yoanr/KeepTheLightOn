@@ -10,25 +10,23 @@ enum CrystalState{
 var _color
 var _state = CrystalState.inactive
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Initialize
-	setState(CrystalState.inactive)
+	_setState(CrystalState.inactive)
 	setColor(utils.ColorEnum.WHITE)
 	
-	# Test
-	throw(800, Vector2(-2,2))
-	pass # Replace with function body.
+	# To test it individually :
+	#throw(800, Vector2(-2,2))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Called every frame
 func _process(delta):
 	if _state == CrystalState.active and linear_velocity == Vector2.ZERO:
-		setState(CrystalState.inactive)
+		_setState(CrystalState.inactive)
 	pass
 
 func take():
-	setState(CrystalState.active)
+	_setState(CrystalState.active)
 	pass
 
 # Takes a force (float) and direction (Vector2, normalized or not)
@@ -37,7 +35,8 @@ func throw(force, direction):
 	apply_central_impulse(impulse)
 	pass
 
-func setState(newState):
+# Change crystal state
+func _setState(newState):
 	if newState == CrystalState.active :
 		_state = CrystalState.active
 		# change sprite here

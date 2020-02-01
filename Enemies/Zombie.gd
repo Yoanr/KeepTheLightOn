@@ -1,48 +1,68 @@
 extends RigidBody2D
 
-
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var _direction
 var _generatorPosition
 var _randomGen
-export (float) var speed = 5
-export (float) var deviationRatio = 0.2 # between 0 and 1
+export (float) var speed = 400
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_randomGen = RandomNumberGenerator.new()
 	connect("body_entered",self,"onBodyEntered")
-	# Test
-	_direction = Vector2(2,0)
-	pass # Replace with function body.
+	$Area2D.connect("body_entered",self,"onTriggerEntered")
+	$Area2D.connect("body_exited",self,"onTriggerExited")
 
+	# to test individual zombie, use this to initialize it :
+	#_generatorPosition = Vector2(1200, 0)
+	#_follow(_generatorPosition)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	linear_velocity = _direction * speed * delta
+	linear_velocity = _direction.normalized() * speed
 	pass
 
-func _follow():
-	_direction = _generatorPosition - position
-	_direction += .randf_range(-deviationRatio,deviationRatio)
+func setTarget(generator):
+	_generatorPosition = generator.position
+	_follow(_generatorPosition)
+	_rotateSprite()
 	pass
 
-func onBodyEntered(body):
-	if(body.is_in_group("crystal")):
+func _follow(targetPos):
+	_direction = targetPos - position
+	_rotateSprite()
+	pass
+
+func _rotateSprite():
+	rotation = _direction.angle()
+	pass
+
+func onBodyEntered(body) :
+	if(body.is_in_group("crystal")) :
 		var crystal = body
 		if crystal.isACtive():
+			print("zombie entered by active crystal, will die")
 			_die()
 			
-	if(body.is_in_group("player")):
+	if(body.is_in_group("player")) :
 		var player = body
-		# todo
-		# player.disable()
+		if !player.isDisabled() :
+			print("zombie kicked player")
+			player.disable()
 
+func onTriggerEntered(body):
+	if(body.is_in_group("player")) :
+		var player = body
+		if !player.isDisabled() :
+			print("zombie follows player")
+			_follow(player.position)
+ 
+func onTriggerExited(body):
+	print("zombie trigger exited")
+	_follow(_generatorPosition)
 
 func _die():
-	#fx
-	#remove from scene
+	# todo fx
+	#
+	
+	# remove from scene
 	get_parent().remove_child(self)
-	pass
