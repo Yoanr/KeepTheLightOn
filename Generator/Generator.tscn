@@ -8,7 +8,6 @@
 extents = Vector2( 32.9056, 32.4873 )
 
 [node name="Generator" type="Sprite"]
-position = Vector2( 500, 300 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 
