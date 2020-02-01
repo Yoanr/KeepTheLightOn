@@ -20,16 +20,35 @@ func _ready():
 	for i in range(nbOfBatteries):
 		batteries.append(Battery.instance())
 		self.add_child(batteries[i])
+		setBatteries(i)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	elapsedTime += delta
-	#print("elapsedTime = " + str(elapsedTime))
 	if elapsedTime >= refreshGeneratorHpTimer:
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
 	connect("body_entered",self, "collide")
 	checkGameState()
 
+func setBatteries(batteryId):
+	var position = Vector2(0.0, 0.0)
+	
+	if batteryId == 0:
+		position.x = -460.0
+		position.y = 0.0
+	if batteryId == 1:
+		position.x = 460.0
+		position.y = 0.0
+	if batteryId == 2:
+		position.x = 0.0
+		position.y = 260.0
+	if batteryId == 3:
+		position.x = 0.0
+		position.y = -260.0 
+	batteries[batteryId].translate(position)
+	batteries[batteryId].set_texture(preload("res://icon.png"))
+	pass
+	
 func checkGameState() -> int:
 	if hp <= 0 :
 		return liveState.defeat
