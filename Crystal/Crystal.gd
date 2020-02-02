@@ -1,5 +1,6 @@
 extends RigidBody2D
 onready var utils = preload("res://Utils/Color.gd").new()
+onready var Explosion = preload("res://VFX/CrystalExplosion.tscn")
 
 enum CrystalState{
 	inactive,
@@ -25,6 +26,7 @@ func _ready():
 	connect("body_entered",self,"_onBodyEntered")
 	# Initialize
 	_setState(CrystalState.inactive)
+	$SpawnParticles.set_emitting(true)
 	pass # Replace with function body.
 
 # Called every frame
@@ -87,11 +89,13 @@ func _setState(newState):
 		# put on active layer :
 		set_collision_layer(0)
 		set_collision_layer_bit(6,true)
+		z_index = -1
 		# collisions with player, zombies, active crystals :
 		set_collision_mask(0)
 		set_collision_mask_bit(0, true)
 		set_collision_mask_bit(2, true)
 		set_collision_mask_bit(6, true)
+		z_index = 1
 
 		
 	if newState == CrystalState.inactive :
@@ -133,6 +137,9 @@ func follow(player):
 	_player = player
 	
 func die():
+	var explosion = Explosion.instance()
+	get_tree().get_root().add_child(explosion)
+	explosion.position = position
 	manager.crystalDied()
 	if(_player != null):
 		_player.release()
