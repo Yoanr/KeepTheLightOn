@@ -89,11 +89,13 @@ func _setState(newState):
 		# put on active layer :
 		set_collision_layer(0)
 		set_collision_layer_bit(6,true)
+		z_index = -1
 		# collisions with player, zombies, active crystals :
 		set_collision_mask(0)
 		set_collision_mask_bit(0, true)
 		set_collision_mask_bit(2, true)
 		set_collision_mask_bit(6, true)
+		z_index = 1
 
 		
 	if newState == CrystalState.inactive :
