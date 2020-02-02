@@ -21,7 +21,7 @@ func _ready():
 
 func _process(delta):
 	linear_velocity = _direction.normalized() * speed
-	_rotateSprite()
+	#_rotateSprite()
 	pass
 
 func setTarget(generator):
