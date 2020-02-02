@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 
 signal batteryDestroyed
@@ -15,7 +15,7 @@ export (float) var changeStateTime = 5.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("battery")
-	connect("body_entered",self,"_onBodyEntered")
+	$Area2D.connect("body_entered",self,"_onBodyEntered")
 	_colorRequired = utilsColor.randomColor()
 	_state = State.FUNCTIONNAL
 
