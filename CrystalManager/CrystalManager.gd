@@ -21,9 +21,7 @@ func _ready():
 func setCrystals(crystalsId):
 	var color = utilsColor.randomColorCrystal()
 	crystals[crystalsId].setColor(color)
-	
-	
-	
+
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var x = rng.randf_range(200, 1500)
@@ -31,7 +29,6 @@ func setCrystals(crystalsId):
 	var position = Vector2(x, y)
 	
 	crystals[crystalsId].translate(position)
-	crystals[crystalsId].get_node("Sprite").set_texture(preload("res://Crystal/Assets/CrystalBlue.png"))
 	
 	pass
 

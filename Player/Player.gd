@@ -22,6 +22,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(is_disabled):
+		linear_velocity = Vector2.ZERO
+		return
 	
 	# Get inputs
 	var id: String = "P" + String(_id_player)
@@ -81,5 +84,13 @@ func body_entered(body):
 func disable():
 	if(!is_disabled):
 		is_disabled = true
+		$AnimatedSprite.modulate = Color(1,1,1,0.4)
+		set_collision_layer_bit(0, false)
+		set_collision_layer_bit(5, true)
+		set_collision_mask_bit(2, false)
 		yield(get_tree().create_timer(_disable_time), "timeout")
+		set_collision_layer_bit(0, true)
+		set_collision_layer_bit(5, false)
+		set_collision_mask_bit(2, true)
+		$AnimatedSprite.modulate = Color(1,1,1,1)
 		is_disabled = false

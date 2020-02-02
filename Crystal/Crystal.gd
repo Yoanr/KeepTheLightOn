@@ -23,7 +23,6 @@ func _ready():
 	add_to_group("crystal")
 	# Initialize
 	_setState(CrystalState.inactive)
-	setColor(utils.ColorEnum.WHITE)
 	pass # Replace with function body.
 
 # Called every frame
@@ -51,18 +50,25 @@ func throw(force, direction):
 func _setState(newState):
 	if newState == CrystalState.active :
 		_state = CrystalState.active
+		$Sprite.modulate = Color.white
 		# change sprite here
 		
 	if newState == CrystalState.inactive :
 		_state = CrystalState.inactive
+		$Sprite.modulate = Color(1,1,1,0.4)
 		# change sprite here
 
 # Takes a color from utils ColorEnum 
 func setColor(newColor):
 	# sets internal color value
 	_color = newColor
+	if(_color == utils.ColorEnum.RED):
+		$Sprite.set_texture(preload("res://Crystal/Assets/CrystalRed.png"))
+	elif(_color == utils.ColorEnum.YELLOW):
+		$Sprite.set_texture(preload("res://Crystal/Assets/CrystalYellow.png"))
+	elif(_color == utils.ColorEnum.BLUE):
+		$Sprite.set_texture(preload("res://Crystal/Assets/CrystalBlue.png"))
 	# get the matching color from the utils file and sets sprite color
-	$Sprite.modulate = utils.getColorValue(newColor)
 
 func isActive():
 	return _state == CrystalState.active;
