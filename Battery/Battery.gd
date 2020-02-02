@@ -1,4 +1,5 @@
 extends RigidBody2D
+
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 
 signal batteryDestroyed
@@ -14,10 +15,11 @@ export (float) var changeStateTime = 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_state = State.FUNCTIONNAL
+	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
 	add_to_group("battery")
 	$Area2D.connect("body_entered",self,"_onBodyEntered")
 	_colorRequired = utilsColor.randomColor()
-	_state = State.FUNCTIONNAL
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -39,6 +41,7 @@ func _onBodyEntered(body):
 		var crystal = body
 		if(crystal.getColor() == _colorRequired):
 			setStateToFunctionnal()
+			_colorRequired = utilsColor.randomColor()
 		else:
 			checkDowngradeState()
 
@@ -53,16 +56,20 @@ func getState() -> int:
 	return _state
 
 func setStateToFunctionnal():
+	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
 	emit_signal("batteryFunctionnal",self)
 
 func setStateToBroken():
+	print("BROKEN")
+	$Sprite.set_texture(preload("res://Battery/BatteryStep2.png"))
 	_elapsedTime = 0.0
 	_state = State.BROKEN
 
 func setStateToDestroyed():
-	print("battery is destroyed")
+	print("DESTROYED")
+	$Sprite.set_texture(preload("res://Battery/BatteryStep3.png"))
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
 	emit_signal("batteryDestroyed",self)
