@@ -61,6 +61,7 @@ func _process(delta) :
 	pass
 
 func _spawnZombies(location) :
+	print("spawn!!")
 	while(!_batterieIsFunctionnal) :
 		
 		if _randGen.randi_range(0,100) <= 30 :
@@ -79,7 +80,16 @@ func _spawnZombies(location) :
 func onBatteryDestroyed(battery) :
 	print("zombies manager receives destroyed signal from battery")
 	_batterieIsFunctionnal = false
-	_spawnZombies(battery.position)
+	var position
+	if(_battID == 0):
+		position = Vector2(-70,550)
+	if(_battID == 1):
+		position = Vector2(2021,562)
+	if(_battID == 2):
+		position = Vector2(900,1154)
+	if(_battID == 3):
+		position = Vector2(940,-46)
+	_spawnZombies(battery.global_position)
 
 func onBatteryFunctionnal(battery) :
 	print("zombies manager receives functionnal signal from battery")
