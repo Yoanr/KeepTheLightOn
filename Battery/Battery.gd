@@ -16,8 +16,8 @@ export (float) var changeStateTime = 5.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_state = State.FUNCTIONNAL
-	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
-	$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep1.png"))
+	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	add_to_group("battery")
 	$Area2D.connect("body_entered",self,"_onBodyEntered")
 	changeColor()
@@ -42,7 +42,6 @@ func _onBodyEntered(body):
 		var crystal = body
 		if(crystal.getColor() == _colorRequired):
 			setStateToFunctionnal()
-			_colorRequired = utilsColor.randomColor()
 		else:
 			checkDowngradeState()
 		crystal.die()
@@ -59,33 +58,33 @@ func changeColor():
 	while(newcolor == _colorRequired):
 		 newcolor = utilsColor.randomColor()
 	_colorRequired = newcolor
-	$SpriteBG.modulate = utilsColor.getColorValue(_colorRequired)
+	$Sprite.modulate = utilsColor.getColorValue(_colorRequired)
 	print(utilsColor.getColorValue(_colorRequired))
-	$SpriteBG.modulate.a = 1
+	$Sprite.modulate.a = 1
 
 func getState() -> int:
 	return _state
 
 func setStateToFunctionnal():
-	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
-	$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
+	print("FUNCTIONNAL")
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep1.png"))
+	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
 	changeColor()
-	print("battery is now functionnal")
 	emit_signal("batteryFunctionnal",self)
 
 func setStateToBroken():
 	print("BROKEN")
-	$Sprite.set_texture(preload("res://Battery/BatteryStep2.png"))
-	$SpriteBG.set_texture(preload("res://Battery/BatteryStep2BG.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep2.png"))
+	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep2BG.png"))
 	_elapsedTime = 0.0
 	_state = State.BROKEN
 
 func setStateToDestroyed():
 	print("DESTROYED")
-	$Sprite.set_texture(preload("res://Battery/BatteryStep3.png"))
-	$SpriteBG.set_texture(preload("res://Battery/BatteryStep3BG.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep3.png"))
+	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep3BG.png"))
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
 	emit_signal("batteryDestroyed",self)

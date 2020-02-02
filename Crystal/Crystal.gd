@@ -36,7 +36,7 @@ func _process(_delta):
 	pass
 
 func _onBodyEntered(body):
-	print("COLlISION")
+	#print("COLlISION")
 	if(body.is_in_group("crystal")):
 		var crystal = body
 		if(!isActive() or !crystal.isActive()):

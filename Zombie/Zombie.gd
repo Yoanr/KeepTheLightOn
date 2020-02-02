@@ -6,6 +6,7 @@ var _direction = Vector2(1,1)
 var _generatorPosition
 var _randomGen
 export (float) var speed = 400
+onready var SFXGrunt = preload("res://Zombie/SFX/ZombieGrunt1.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +49,8 @@ func onBodyEntered(body) :
 			crystal.die()
 			if (crystal._player):
 				crystal._player.disable()
+			get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXGrunt
+			get_tree().get_nodes_in_group("vfxplayer")[0].play()
 			_die()
 			
 	if(body.is_in_group("player")) :
@@ -55,12 +58,18 @@ func onBodyEntered(body) :
 		if !player.is_disabled :
 			print("zombie kicked player")
 			player.disable()
+			get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXGrunt
+			get_tree().get_nodes_in_group("vfxplayer")[0].play()
+	
 			
 	if(body.is_in_group("generator")) :
+		get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXGrunt
+		get_tree().get_nodes_in_group("vfxplayer")[0].play()
 		var generator = body
 		print("zombie kicked generator")
 		_generator.hit()
 		_commitSuicide()
+		
 
 func onTriggerEntered(body):
 	if(body.is_in_group("player")) :

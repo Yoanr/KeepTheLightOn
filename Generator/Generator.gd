@@ -2,6 +2,9 @@ extends RigidBody2D
 # Declare member variables here. Examples:
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 var Battery = preload("res://Battery/Battery.tscn")
+onready var SFXPVUp = preload("res://Generator/SFX/GeneratorPVUp.wav")
+onready var SFXPVDown = preload("res://Generator/SFX/GeneratorPVDown.wav")
+
 export (int) var nbOfBatteries = 4
 export (int) var zombieDamage = 5
 
@@ -96,6 +99,8 @@ func changeColor() :
 
 func hit() :
 	hp -= zombieDamage
+	get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXPVDown
+	get_tree().get_nodes_in_group("vfxplayer")[0].play()
 	if hp < 0 :
 		hp = 0
 
@@ -110,7 +115,11 @@ func accept(crystal) :
 	if crystal.isActive() and crystal.getColor() == color :
 		hp += 5
 		changeColor()
+		get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXPVUp
+		get_tree().get_nodes_in_group("vfxplayer")[0].play()
 		crystal.die()
 	else :
 		hp -= 5
+		get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXPVDown
+		get_tree().get_nodes_in_group("vfxplayer")[0].play()
 		crystal.die()

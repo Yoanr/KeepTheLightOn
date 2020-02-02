@@ -9,6 +9,7 @@ enum Difficulty {SWEET, REGULAR, SPICY}
 
 # Declare member variables here.
 var _generator
+var _battery
 export (int) var _battID = 0
 var _batterieIsFunctionnal = true
 var _randGen = RandomNumberGenerator.new()
@@ -49,13 +50,13 @@ func _ready():
 # Called every frame.
 func _process(delta) :
 	if !_initialized :
-		var batterie = _generator.batteries[_battID]
-		if batterie == null :
+		_battery = _generator.batteries[_battID]
+		if _battery == null :
 			return
 		else :
-			batterie.connect("batteryDestroyed", self, "onBatteryDestroyed")
-			batterie.connect("batteryFunctionnal", self, "onBatteryFunctionnal")
-			print("batterie connected")
+			_battery.connect("batteryDestroyed", self, "onBatteryDestroyed")
+			_battery.connect("batteryFunctionnal", self, "onBatteryFunctionnal")
+			print("batterie connected : " + String(_battID) + " position is " + String(_battery.position))
 			_initialized = true
 	pass
 
