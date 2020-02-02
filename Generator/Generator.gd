@@ -55,7 +55,7 @@ func setBatteries(batteryId):
 		position.x = 0.0
 		position.y = 492.0 
 	batteries[batteryId].translate(position)
-	batteries[batteryId].set_texture(preload("res://icon.png"))
+	batteries[batteryId].set_texture(preload("res://Battery/battery.png"))
 	pass
 	
 func checkGameState() -> int:
