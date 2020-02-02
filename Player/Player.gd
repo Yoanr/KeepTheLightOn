@@ -60,6 +60,11 @@ func throw(move_input:Vector2):
 	remove_collision_exception_with(_crystal)
 	_crystal = null
 
+func release():
+	$AnimatedSprite.play("default")
+	_crystal = null
+	
+
 
 func throw_strength():
 	var x = clamp(_throw_load_time, 0, _max_throw_load_time)

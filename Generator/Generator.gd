@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 # Declare member variables here. Examples:
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 var Battery = preload("res://Battery/Battery.tscn")
@@ -13,18 +13,23 @@ enum liveState {
 
 var elapsedTime = 0.0
 var refreshGeneratorHpTimer = 10.0
-var hp = 50
+var hp = 50.0
 var color = 0
 var batteries = []
 
 func _ready():
-	#$RigidBody2D.connect("body_entered",self, "collide")
 	add_to_group("generator")
+	
+	$Area2D.connect("body_entered", self, "onBodyEntered")
 	
 	for i in range(nbOfBatteries):
 		batteries.append(Battery.instance())
 		self.add_child(batteries[i])
 		setBatteries(i)
+	
+	changeColor()
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	elapsedTime += delta
@@ -32,6 +37,7 @@ func _process(delta):
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
 	checkGameState()
+	$AnimatedSprite.modulate.a = hp / 100
 
 func setBatteries(batteryId):
 	var position = Vector2(0.0, 0.0)
@@ -49,7 +55,7 @@ func setBatteries(batteryId):
 		position.x = 0.0
 		position.y = 492.0 
 	batteries[batteryId].translate(position)
-	batteries[batteryId].set_texture(preload("res://icon.png"))
+	batteries[batteryId].set_texture(preload("res://Battery/battery.png"))
 	pass
 	
 func checkGameState() -> int:
@@ -75,10 +81,27 @@ func changeColor() :
 	var oldColor = color
 	
 	while color == oldColor :
-		color = randi() % 6
+		color = randi() % 6 + 1
 	print("[oldColor] = " + str(oldColor) + " [color] = " + str(color))
+	$AnimatedSprite.modulate = utilsColor.getColorValue(color)
 
 func hit() :
 	hp -= zombieDamage
 	if hp < 0 :
 		hp = 0
+
+func onBodyEntered(body) :
+	print("col")
+	if(body.is_in_group("crystal")) :
+		var crystal = body
+		accept(crystal)
+
+
+func accept(crystal) :
+	if crystal.isActive() and crystal.getColor() == color :
+		hp += 5
+		changeColor()
+		crystal.die()
+	else :
+		hp -= 5
+		crystal.die()
