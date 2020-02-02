@@ -2,6 +2,7 @@ extends Node2D
 onready var utilsColor = preload("res://Utils/Color.gd").new()
 
 signal batteryDestroyed
+signal batteryFunctionnal
 
 var _colorRequired
 var _state
@@ -54,6 +55,7 @@ func getState() -> int:
 func setStateToFunctionnal():
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
+	emit_signal("batteryFunctionnal",self)
 
 func setStateToBroken():
 	_elapsedTime = 0.0

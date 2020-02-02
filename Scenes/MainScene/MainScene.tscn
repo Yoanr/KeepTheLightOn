@@ -26,3 +26,14 @@ id_player = 2
 position = Vector2( 960, 540 )
 
 [node name="ZombiesManager" parent="." instance=ExtResource( 2 )]
+
+[node name="ZombiesManager2" parent="." instance=ExtResource( 2 )]
+_battID = 1
+difficulty = 1
+
+[node name="ZombiesManager3" parent="." instance=ExtResource( 2 )]
+_battID = 2
+
+[node name="ZombiesManager4" parent="." instance=ExtResource( 2 )]
+_battID = 3
+difficulty = 2

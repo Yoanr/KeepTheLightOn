@@ -9,12 +9,12 @@ enum Difficulty {SWEET, REGULAR, SPICY}
 
 # Declare member variables here.
 var _generator
-var _spawnPosition
+export (int) var _battID = 0
+var _batterieIsFunctionnal = true
+var _randGen = RandomNumberGenerator.new()
 
 export (Difficulty) var difficulty = Difficulty.SWEET
 var _spawnTime # time between two zombie spawns, in milliseconds
-var _spawnNumber
-var _spawned = 0
 var _zombieSpeed
 
 var _initialized = false
@@ -32,17 +32,14 @@ func _ready():
 	# sets value depending on selected difficulty
 	match(difficulty):
 		Difficulty.SWEET :
-			_spawnNumber = 4
-			_spawnTime = 2
-			_zombieSpeed = 80
+			_spawnTime = 4
+			_zombieSpeed = 20
 		Difficulty.REGULAR :
-			_spawnNumber = 5
-			_spawnTime = 1.5
-			_zombieSpeed = 100
+			_spawnTime = 3
+			_zombieSpeed = 40
 		Difficulty.SPICY :
-			_spawnNumber = 7
-			_spawnTime = 1
-			_zombieSpeed = 140
+			_spawnTime = 2.5
+			_zombieSpeed = 60
 	
 	# to test alone (only needs Generator in scene)
 	#_spawnZombies()
@@ -52,36 +49,37 @@ func _ready():
 # Called every frame.
 func _process(delta) :
 	if !_initialized :
-		var batteries = get_tree().get_nodes_in_group("battery")
-		if batteries.size() == 0 :
+		var batterie = _generator.batteries[_battID]
+		if batterie == null :
 			return
 		else :
-			for b in _generator.batteries :
-				b.connect("batteryDestroyed", self, "onBatteryDestroyed")
-				print("batterie connected")
+			batterie.connect("batteryDestroyed", self, "onBatteryDestroyed")
+			batterie.connect("batteryFunctionnal", self, "onBatteryFunctionnal")
+			print("batterie connected")
 			_initialized = true
 	pass
 
-func _spawnZombies() :
-	while(true) :
-		# creates zombie
-		var zombie = Zombie.instance()
+func _spawnZombies(location) :
+	while(!_batterieIsFunctionnal) :
 		
-		# sets params
-		zombie.speed = _zombieSpeed
-		zombie.position = _spawnPosition
-		zombie.setTarget(_generator)
-		self.add_child(zombie)
+		if _randGen.randi_range(0,100) <= 30 :
+			# creates zombie
+			var zombie = Zombie.instance()
+			
+			# sets params
+			zombie.speed = _zombieSpeed
+			zombie.position = location
+			zombie.setTarget(_generator)
+			self.add_child(zombie)
 		
 		# call next spawn
-		_spawned += 1
-		if _spawned < _spawnNumber :
-			yield(get_tree().create_timer(_spawnTime), "timeout")
-		else :
-			_spawned = 0
-			return
+		yield(get_tree().create_timer(_spawnTime), "timeout")
 
 func onBatteryDestroyed(battery) :
-	print("zombies manager receives signal from battery")
-	_spawnPosition = battery.position
-	_spawnZombies()
+	print("zombies manager receives destroyed signal from battery")
+	_batterieIsFunctionnal = false
+	_spawnZombies(battery.position)
+
+func onBatteryFunctionnal(battery) :
+	print("zombies manager receives functionnal signal from battery")
+	_batterieIsFunctionnal = true

@@ -21,6 +21,7 @@ func _ready():
 
 func _process(delta):
 	linear_velocity = _direction.normalized() * speed
+	_rotateSprite()
 	pass
 
 func setTarget(generator):
@@ -32,7 +33,6 @@ func setTarget(generator):
 
 func _follow(targetPos):
 	_direction = targetPos - position
-	_rotateSprite()
 	pass
 
 func _rotateSprite():
@@ -65,11 +65,13 @@ func onTriggerEntered(body):
 		if !player.is_disabled :
 			print("zombie follows player")
 			_follow(player.position)
+			_rotateSprite()
 		
 	if(body.get_parent().is_in_group("generator")) :
 		var generator = body
 		print("zombie follows generator")
 		_follow(generator.position)
+		_rotateSprite()
  
 func onTriggerExited(body):
 	_follow(_generatorPosition)
