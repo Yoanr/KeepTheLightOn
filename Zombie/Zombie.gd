@@ -45,6 +45,8 @@ func onBodyEntered(body) :
 		var crystal = body
 		if crystal.isActive():
 			print("zombie entered by active crystal, will die")
+			crystal.die()
+			crystal._player.disable()
 			_die()
 			
 	if(body.is_in_group("player")) :

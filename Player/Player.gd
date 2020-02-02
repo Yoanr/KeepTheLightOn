@@ -24,6 +24,7 @@ func _ready():
 func _process(delta):
 	if(is_disabled):
 		linear_velocity = Vector2.ZERO
+		rotation = last_rot
 		return
 	
 	# Get inputs
