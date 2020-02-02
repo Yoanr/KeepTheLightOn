@@ -43,17 +43,25 @@ func setBatteries(batteryId):
 	var position = Vector2(0.0, 0.0)
 	
 	if batteryId == 0:
-		position.x = -912.0
+		var angle = Vector2(0.0, -1.0)
+		position.x = -900.0
 		position.y = 0.0
+		batteries[batteryId].rotate(angle.angle())
 	if batteryId == 1:
-		position.x = 912.0
+		var angle = Vector2(0.0, 1.0)
+		position.x = 900.0
 		position.y = 0.0
+		batteries[batteryId].rotate(angle.angle())
 	if batteryId == 2:
+		var angle = Vector2(1.0, 0.0)
 		position.x = 0.0
-		position.y = -492.0
+		position.y = -480.0
+		batteries[batteryId].rotate(angle.angle())
 	if batteryId == 3:
+		var angle = Vector2(-1.0, 0.0)
 		position.x = 0.0
-		position.y = 492.0 
+		position.y = 420.0 
+		batteries[batteryId].rotate(angle.angle())
 	batteries[batteryId].translate(position)
 	pass
 	
