@@ -98,7 +98,7 @@ func onBodyEntered(body) :
 
 
 func accept(crystal) :
-	if crystal.isActive() and crystal.getColor() == color : 
+	if crystal.isActive() and crystal.getColor() == color :
 		hp += 5
 		changeColor()
 		crystal.die()
