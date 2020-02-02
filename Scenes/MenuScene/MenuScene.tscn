@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/MenuScene/MenuScene.gd" type="Script" id=1]
+[ext_resource path="res://Battery/BatteryStep1.png" type="Texture" id=2]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -65,6 +66,11 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="BatteryStep1" type="Sprite" parent="."]
+position = Vector2( 181.329, 327.812 )
+scale = Vector2( 0.235564, 0.238034 )
+texture = ExtResource( 2 )
 [connection signal="button_down" from="Start" to="." method="_on_Start_button_down"]
 [connection signal="button_down" from="Quit" to="." method="_on_Quit_button_down"]
 [connection signal="button_down" from="+" to="." method="plus_on__button_down"]
