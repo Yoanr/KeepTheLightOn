@@ -58,7 +58,7 @@ func setColor(newColor):
 	# sets internal color value
 	_color = newColor
 	# get the matching color from the utils file and sets sprite color
-	$AnimatedSprite.modulate = utils.getColorValue(newColor)
+	$Sprite.modulate = utils.getColorValue(newColor)
 
 func isActive():
 	return _state == CrystalState.active;

@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://CrystalManager/CrystalManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ZombiesManager/ZombiesManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Generator/Generator.tscn" type="PackedScene" id=4]
@@ -37,3 +38,6 @@ _battID = 2
 [node name="ZombiesManager4" parent="." instance=ExtResource( 2 )]
 _battID = 3
 difficulty = 2
+
+[node name="CrystalManager" parent="." instance=ExtResource( 1 )]
+
