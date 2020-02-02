@@ -13,6 +13,7 @@ enum OwnedState{
 	
 
 # Member variables here
+var manager
 var _color
 var _state = CrystalState.inactive
 var owned_state = OwnedState.not_owned
@@ -115,6 +116,7 @@ func follow(player):
 	_player = player
 	
 func die():
+	manager.crystalDied()
 	if(_player != null):
 		_player.release()
 	get_parent().remove_child(self)
