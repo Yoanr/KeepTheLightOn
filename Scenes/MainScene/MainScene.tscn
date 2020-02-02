@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Crystal/Crystal.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ZombiesManager/ZombiesManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Generator/Generator.tscn" type="PackedScene" id=4]
@@ -15,9 +14,6 @@ polygon = PoolVector2Array( -485.587, 761.673, 1388.8, 754.408, 1408.17, -291.76
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 513.857, 299.505 )
-
-[node name="Crystal" parent="." instance=ExtResource( 1 )]
-position = Vector2( 371.694, 285.194 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 813.743, 427.377 )
