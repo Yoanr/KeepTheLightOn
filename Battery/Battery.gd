@@ -45,6 +45,7 @@ func _onBodyEntered(body):
 			_colorRequired = utilsColor.randomColor()
 		else:
 			checkDowngradeState()
+		crystal.die()
 
 # Getter and Setter 
 func getColorRequired() -> int:

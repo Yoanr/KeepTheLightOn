@@ -75,7 +75,8 @@ func throw(force, direction):
 	apply_central_impulse(impulse)
 	owned_state = OwnedState.not_owned
 	yield(get_tree().create_timer(2), "timeout")
-	_setState(CrystalState.inactive)
+	if _player == null :
+		_setState(CrystalState.inactive)
 	pass
 
 # Change crystal state

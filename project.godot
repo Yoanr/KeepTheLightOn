@@ -141,6 +141,8 @@ P4_Throw={
 2d_physics/layer_5="Battery"
 2d_physics/layer_6="DisabledPlayer"
 2d_physics/layer_7="Crystal"
+2d_physics/layer_8="CrystalDisabled"
+2d_physics/layer_9="ZombieArea"
 
 [rendering]
 

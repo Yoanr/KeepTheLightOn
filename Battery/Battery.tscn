@@ -9,7 +9,7 @@ flags = 4
 extents = Vector2( 42.7048, 56.924 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 45.8127, 61.0936 )
+extents = Vector2( 57.9955, 72.2454 )
 
 [node name="Battery" type="RigidBody2D"]
 collision_layer = 16
