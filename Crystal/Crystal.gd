@@ -73,6 +73,8 @@ func throw(force, direction):
 	linear_velocity = Vector2.ZERO
 	apply_central_impulse(impulse)
 	owned_state = OwnedState.not_owned
+	yield(get_tree().create_timer(2), "timeout")
+	_setState(CrystalState.inactive)
 	pass
 
 # Change crystal state
@@ -80,12 +82,26 @@ func _setState(newState):
 	if newState == CrystalState.active :
 		_state = CrystalState.active
 		$Sprite.modulate = Color.white
-		# change sprite here
+		# put on active layer :
+		set_collision_layer(0)
+		set_collision_layer_bit(6,true)
+		# collisions with player, zombies, active crystals :
+		set_collision_mask(0)
+		set_collision_mask_bit(0, true)
+		set_collision_mask_bit(2, true)
+		set_collision_mask_bit(6, true)
+
 		
 	if newState == CrystalState.inactive :
 		_state = CrystalState.inactive
 		$Sprite.modulate = Color(1,1,1,0.4)
-		# change sprite here
+		# put on inactive layer :
+		set_collision_layer(0)
+		set_collision_layer_bit(7,true)
+		# collisions only with player :
+		set_collision_mask(0)
+		set_collision_mask_bit(0, true)
+
 
 # Takes a color from utils ColorEnum 
 func setColor(newColor):

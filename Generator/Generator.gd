@@ -101,7 +101,7 @@ func accept(crystal) :
 	if crystal.isActive() and crystal.getColor() == color : 
 		hp += 5
 		changeColor()
+		crystal.die()
 	else :
-		hit()
 		hp -= 5
 		crystal.die()
