@@ -70,10 +70,10 @@ func setBatteries(batteryId):
 	
 func checkGameState() -> int:
 	if hp <= 0 :
-		get_tree().change_scene("res://Scenes/MenuScene/MenuScene.tscn")
+		get_tree().change_scene("res://Scenes/MainScene/MainScene.tscn")
 		return liveState.defeat
 	if hp >= 100 :
-		get_tree().change_scene("res://Scenes/MenuScene/MenuScene.tscn")
+		get_tree().change_scene("res://Scenes/MainScene/MainScene.tscn")
 		return liveState.victory
 	return liveState.alive
 
