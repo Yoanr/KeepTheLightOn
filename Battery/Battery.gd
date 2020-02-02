@@ -55,7 +55,10 @@ func setColorRequired(colorGiven):
 	_colorRequired = colorGiven
 
 func changeColor():
-	_colorRequired = utilsColor.randomColor()
+	var newcolor = utilsColor.randomColor()
+	while(newcolor == _colorRequired):
+		 newcolor = utilsColor.randomColor()
+	_colorRequired = newcolor
 	$SpriteBG.modulate = utilsColor.getColorValue(_colorRequired)
 	print(utilsColor.getColorValue(_colorRequired))
 	$SpriteBG.modulate.a = 1
@@ -68,6 +71,8 @@ func setStateToFunctionnal():
 	$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
+	changeColor()
+	print("battery is now functionnal")
 	emit_signal("batteryFunctionnal",self)
 
 func setStateToBroken():

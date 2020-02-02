@@ -30,11 +30,11 @@ func getMyDie(color1,color2) -> bool:
 	if(color1 == ColorEnum.YELLOW &&  color2 == ColorEnum.BLUE):
 		return false
 		
-	if(color2 == ColorEnum.RED &&  color1 == ColorEnum.YELLOW):
+	if(color1 == ColorEnum.YELLOW && color2 == ColorEnum.RED ):
 		return true
-	if(color2 == ColorEnum.RED &&  color1 == ColorEnum.BLUE):
+	if( color1 == ColorEnum.BLUE && color2 == ColorEnum.RED ):
 		return false
-	if(color2 == ColorEnum.YELLOW &&  color1 == ColorEnum.BLUE):
+	if(color1 == ColorEnum.BLUE && color2 == ColorEnum.YELLOW ):
 		return true
 	return false;
 

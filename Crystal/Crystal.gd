@@ -51,9 +51,11 @@ func _onBodyEntered(body):
 		crystal.setColor(result)
 		
 		if(crystal._player == null && _player != null):
+			print("one isnt null")
 			crystal.die()
 			return
 		if(crystal._player == null && _player == null):
+			print("both null")
 			if(utils.getMyDie(_color,color2)):
 				die()
 				return
