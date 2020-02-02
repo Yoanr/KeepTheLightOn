@@ -16,7 +16,7 @@ export (float) var changeStateTime = 5.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_state = State.FUNCTIONNAL
-	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep1.png"))
 	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	add_to_group("battery")
 	$Area2D.connect("body_entered",self,"_onBodyEntered")
@@ -67,7 +67,7 @@ func getState() -> int:
 
 func setStateToFunctionnal():
 	print("FUNCTIONNAL")
-	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep1.png"))
 	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
@@ -76,14 +76,14 @@ func setStateToFunctionnal():
 
 func setStateToBroken():
 	print("BROKEN")
-	$Sprite.set_texture(preload("res://Battery/BatteryStep2.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep2.png"))
 	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep2BG.png"))
 	_elapsedTime = 0.0
 	_state = State.BROKEN
 
 func setStateToDestroyed():
 	print("DESTROYED")
-	$Sprite.set_texture(preload("res://Battery/BatteryStep3.png"))
+	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep3.png"))
 	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep3BG.png"))
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
