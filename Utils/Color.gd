@@ -11,3 +11,8 @@ func randomColor() -> int:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	return rng.randi_range(1, 6)
+
+func randomColorCrystal() -> int:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	return rng.randi_range(1,3)

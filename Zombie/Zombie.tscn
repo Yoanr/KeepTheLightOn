@@ -17,7 +17,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 63.4722
+radius = 70.0956
 
 [node name="Zombie" type="RigidBody2D"]
 collision_layer = 4
@@ -42,4 +42,5 @@ frames = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 30.5356, -0.59874 )
 shape = SubResource( 3 )
