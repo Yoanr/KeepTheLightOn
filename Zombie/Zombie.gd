@@ -2,7 +2,7 @@ extends RigidBody2D
 
 # Declare member variables here. Examples:
 var _generator
-var _direction
+var _direction = Vector2(1,1)
 var _generatorPosition
 var _randomGen
 export (float) var speed = 400

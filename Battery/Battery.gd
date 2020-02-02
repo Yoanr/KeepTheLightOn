@@ -17,9 +17,10 @@ export (float) var changeStateTime = 5.0
 func _ready():
 	_state = State.FUNCTIONNAL
 	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
+	$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	add_to_group("battery")
 	$Area2D.connect("body_entered",self,"_onBodyEntered")
-	_colorRequired = utilsColor.randomColor()
+	changeColor()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -44,6 +45,7 @@ func _onBodyEntered(body):
 			_colorRequired = utilsColor.randomColor()
 		else:
 			checkDowngradeState()
+		crystal.die()
 
 # Getter and Setter 
 func getColorRequired() -> int:
@@ -52,24 +54,38 @@ func getColorRequired() -> int:
 func setColorRequired(colorGiven):
 	_colorRequired = colorGiven
 
+func changeColor():
+	var newcolor = utilsColor.randomColor()
+	while(newcolor == _colorRequired):
+		 newcolor = utilsColor.randomColor()
+	_colorRequired = newcolor
+	$SpriteBG.modulate = utilsColor.getColorValue(_colorRequired)
+	print(utilsColor.getColorValue(_colorRequired))
+	$SpriteBG.modulate.a = 1
+
 func getState() -> int:
 	return _state
 
 func setStateToFunctionnal():
 	$Sprite.set_texture(preload("res://Battery/BatteryStep1.png"))
+	$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	_elapsedTime = 0.0
 	_state = State.FUNCTIONNAL
+	changeColor()
+	print("battery is now functionnal")
 	emit_signal("batteryFunctionnal",self)
 
 func setStateToBroken():
 	print("BROKEN")
 	$Sprite.set_texture(preload("res://Battery/BatteryStep2.png"))
+	$SpriteBG.set_texture(preload("res://Battery/BatteryStep2BG.png"))
 	_elapsedTime = 0.0
 	_state = State.BROKEN
 
 func setStateToDestroyed():
 	print("DESTROYED")
 	$Sprite.set_texture(preload("res://Battery/BatteryStep3.png"))
+	$SpriteBG.set_texture(preload("res://Battery/BatteryStep3BG.png"))
 	_elapsedTime = 0.0
 	_state = State.DESTROYED
 	emit_signal("batteryDestroyed",self)

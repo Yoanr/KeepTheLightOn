@@ -2,7 +2,7 @@ extends Node
 
 enum ColorEnum {WHITE, RED, YELLOW, BLUE, ORANGE, GREEN, PURPLE}
 
-var _colorMap = {ColorEnum.WHITE: Color.white, ColorEnum.RED: Color.red, ColorEnum.YELLOW: Color.yellow, ColorEnum.BLUE: Color.blue, ColorEnum.ORANGE: Color.orange, ColorEnum.GREEN: Color.green, ColorEnum.PURPLE: Color.purple}
+var _colorMap = {ColorEnum.WHITE: Color("#FFFFFF"), ColorEnum.RED: Color("#DB0E0E"), ColorEnum.YELLOW: Color("#F2AB1D"), ColorEnum.BLUE: Color("#0073C9"), ColorEnum.ORANGE: Color("DD660E"), ColorEnum.GREEN: Color("#0B7A33"), ColorEnum.PURPLE: Color("#9048C6")}
 
 func getColorValue(colorEnumVal) -> Color:
 	return _colorMap.get(colorEnumVal)
@@ -30,11 +30,11 @@ func getMyDie(color1,color2) -> bool:
 	if(color1 == ColorEnum.YELLOW &&  color2 == ColorEnum.BLUE):
 		return false
 		
-	if(color2 == ColorEnum.RED &&  color1 == ColorEnum.YELLOW):
+	if(color1 == ColorEnum.YELLOW && color2 == ColorEnum.RED ):
 		return true
-	if(color2 == ColorEnum.RED &&  color1 == ColorEnum.BLUE):
+	if( color1 == ColorEnum.BLUE && color2 == ColorEnum.RED ):
 		return false
-	if(color2 == ColorEnum.YELLOW &&  color1 == ColorEnum.BLUE):
+	if(color1 == ColorEnum.BLUE && color2 == ColorEnum.YELLOW ):
 		return true
 	return false;
 
