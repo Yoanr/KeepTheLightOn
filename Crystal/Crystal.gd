@@ -70,3 +70,5 @@ func isActive():
 func follow(player):
 	_player = player
 	
+func die():
+	get_parent().remove_child(self)
