@@ -20,13 +20,19 @@ func _ready():
 func setCrystals(newcrystal):
 	var color = utilsColor.randomColorCrystal()
 	newcrystal.setColor(color)
-
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var x = rng.randf_range(200, 1500)
 	var y = rng.randf_range(200, 800)
+	
+	while(x < 1060  && x > 860 && y < 600 && y > 480):
+		rng.randomize()
+		x = rng.randf_range(200, 1500)
+		y = rng.randf_range(200, 800)
+		
 	var position = Vector2(x, y)
 	newcrystal.translate(position)
+
 	
 
 func crystalDied():
