@@ -132,6 +132,16 @@ P4_Throw={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Wall"
+2d_physics/layer_3="Zombie"
+2d_physics/layer_4="Generator"
+2d_physics/layer_5="Battery"
+2d_physics/layer_6="DisabledPlayer"
+2d_physics/layer_7="Crystal"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

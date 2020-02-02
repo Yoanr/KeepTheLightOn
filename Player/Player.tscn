@@ -8,6 +8,7 @@ radius = 10.2953
 height = 19.5734
 
 [node name="Player" type="RigidBody2D"]
+collision_mask = 127
 mode = 2
 gravity_scale = 0.0
 contacts_reported = 10
