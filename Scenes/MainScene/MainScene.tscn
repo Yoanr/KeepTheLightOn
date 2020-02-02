@@ -40,4 +40,3 @@ _battID = 3
 difficulty = 2
 
 [node name="CrystalManager" parent="." instance=ExtResource( 1 )]
-
