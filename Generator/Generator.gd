@@ -63,7 +63,7 @@ func setBatteries(batteryId):
 		position.y = 420.0 
 		batteries[batteryId].rotate(angle.angle())
 	batteries[batteryId].translate(position)
-	batteries[batteryId].set_texture(preload("res://Battery/battery.png"))
+	batteries[batteryId].get_node("Sprite").set_texture(preload("res://Battery/battery.png"))
 	pass
 	
 func checkGameState() -> int:
