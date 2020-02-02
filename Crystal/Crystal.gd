@@ -16,6 +16,7 @@ enum OwnedState{
 var _color
 var _state = CrystalState.inactive
 var owned_state = OwnedState.not_owned
+var _player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +30,8 @@ func _ready():
 func _process(_delta):
 	if _state == CrystalState.active and linear_velocity == Vector2.ZERO:
 		_setState(CrystalState.inactive)
+	if(_player):
+		linear_velocity = 30 * (_player.position - position + 40 * Vector2(cos(_player.last_rot), sin(_player.last_rot)))
 	pass
 
 func take():
@@ -39,6 +42,7 @@ func take():
 # Takes a force (float) and direction (Vector2, normalized or not)
 func throw(force, direction):
 	var impulse = force * direction.normalized()
+	linear_velocity = Vector2.ZERO
 	apply_central_impulse(impulse)
 	owned_state = OwnedState.not_owned
 	pass
@@ -62,3 +66,7 @@ func setColor(newColor):
 
 func isActive():
 	return _state == CrystalState.active;
+
+func follow(player):
+	_player = player
+	

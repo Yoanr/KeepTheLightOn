@@ -8,6 +8,8 @@
 radius = 40.3222
 
 [node name="Generator" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 127
 mode = 1
 gravity_scale = 0.0
 contact_monitor = true

@@ -19,11 +19,6 @@ config/name="GlobalGameJam2020"
 run/main_scene="res://Scenes/MainScene/MainScene.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/width=1920
-window/size/height=1080
-
 [input]
 
 P1_Up={
@@ -136,6 +131,16 @@ P4_Throw={
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Wall"
+2d_physics/layer_3="Zombie"
+2d_physics/layer_4="Generator"
+2d_physics/layer_5="Battery"
+2d_physics/layer_6="DisabledPlayer"
+2d_physics/layer_7="Crystal"
 
 [rendering]
 

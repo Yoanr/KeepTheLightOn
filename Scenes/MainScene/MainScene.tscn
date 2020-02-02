@@ -21,7 +21,7 @@ position = Vector2( 813.743, 427.377 )
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 621.639, 172.678 )
-id_player = 2
+_id_player = 2
 
 [node name="Generator" parent="." instance=ExtResource( 4 )]
 position = Vector2( 960, 540 )

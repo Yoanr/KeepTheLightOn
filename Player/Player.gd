@@ -1,15 +1,16 @@
 extends RigidBody2D
 
 
-export (int) var id_player = 1
-export (float) var speed = 500
-var throw_strength: int = 0
-var crystal
-var pj: PinJoint2D
+export (int) var _id_player = 1
+export (float) var _speed = 500
+export (float) var _disable_time = 2.0
+export (float) var _max_throw_load_time = 2.0
+
+var _throw_load_time = 0.0
+var _crystal
 var last_rot: float = 0
 var is_disabled: bool = false
-var disable_time: float = 2.0
-var get_cristal: bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,15 +19,12 @@ func _ready():
 	pass # Replace with function body.
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if(get_cristal):
-		crystal.mode = RigidBody2D.MODE_CHARACTER
-		get_cristal = false
-	
 	# Get inputs
-	var id: String = "P" + String(id_player)
+	var id: String = "P" + String(_id_player)
 	var left_input: float = Input.get_action_strength(id + "_Left")
 	var right_input: float = Input.get_action_strength(id + "_Right")
 	var up_input: float = Input.get_action_strength(id + "_Up")
@@ -36,50 +34,52 @@ func _process(delta):
 	var is_releasing_throw:bool = Input.is_action_just_released(id + "_Throw")
 	
 	# Move player
-	linear_velocity = move_input.normalized() * speed
+	linear_velocity = move_input.normalized() * _speed
 	rotation = last_rot
 	if(move_input != Vector2.ZERO):
 		rotation = move_input.angle()
 		last_rot = rotation
 	
 	
-	if(is_loading_throw and crystal and pj):
-		throw_strength += 10
+	if(is_loading_throw and _crystal):
+		_throw_load_time += delta
 	
-	if(is_releasing_throw and crystal and pj):
+	if(is_releasing_throw and _crystal):
 		throw(move_input)
-		throw_strength = 0
+		_throw_load_time = 0
 
-
+	
 func throw(move_input:Vector2):
 	$AnimatedSprite.play("default")
-	crystal.mode = RigidBody2D.MODE_RIGID
-	crystal.throw(throw_strength, Vector2(cos(last_rot), sin(last_rot)))
-	remove_child(pj)
-	pj.queue_free()
-	pj = null
-	add_collision_exception_with(crystal)
-	yield(get_tree().create_timer(0.5), "timeout")
-	remove_collision_exception_with(crystal)
-	crystal = null
-	
+	_crystal.follow(null)
+	_crystal.throw(throw_strength(), Vector2(cos(last_rot), sin(last_rot)))
+	yield(get_tree().create_timer(0.2), "timeout")
+	remove_collision_exception_with(_crystal)
+	_crystal = null
+
+
+func throw_strength():
+	var x = clamp(_throw_load_time, 0, _max_throw_load_time)
+	var ts = 0
+	if(x < 1):
+		ts = pow(x + 1, 4) * 100 + 500
+	else:
+		ts = 2100 + (x - 1) * 200
+	return ts  
 
 
 func body_entered(body):
-	if(body.is_in_group("crystal") and !crystal):
+	if(body.is_in_group("crystal") and !_crystal):
 		if(body.owned_state == 0):
 			$AnimatedSprite.play("hold")
-			crystal = body
-			crystal.take()
-			pj = PinJoint2D.new()
-			add_child(pj)
-			pj.node_a = self.get_path()
-			pj.node_b = crystal.get_path()
-			get_cristal = true
+			_crystal = body
+			_crystal.take()
+			add_collision_exception_with(_crystal)
+			_crystal.follow(self)
 
 
 func disable():
 	if(!is_disabled):
 		is_disabled = true
-		yield(get_tree().create_timer(disable_time), "timeout")
+		yield(get_tree().create_timer(_disable_time), "timeout")
 		is_disabled = false
