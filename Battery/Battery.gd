@@ -7,16 +7,15 @@ signal batteryFunctionnal
 
 var _colorRequired
 var _state
-var _elapsedTime = 0.0
+export (float) var _elapsedTime = -5 # original delay (should be negative)
 
 enum State {FUNCTIONNAL, BROKEN, DESTROYED}
 
-export (float) var changeStateTime = 5.0
+export (float) var changeStateTime = 10.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_state = State.FUNCTIONNAL
-	$Sprite.set_texture(preload("res://Battery/Changeables/BatteryStep1.png"))
+	setStateToFunctionnal()
 	#$SpriteBG.set_texture(preload("res://Battery/BatteryStep1BG.png"))
 	add_to_group("battery")
 	$Area2D.connect("body_entered",self,"_onBodyEntered")

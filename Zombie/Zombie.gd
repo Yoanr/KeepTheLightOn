@@ -7,6 +7,7 @@ var _generatorPosition
 var _randomGen
 export (float) var speed = 400
 onready var SFXGrunt = preload("res://Zombie/SFX/ZombieGrunt1.wav")
+var _intoTrigger = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,12 +33,19 @@ func setTarget(generator):
 	_rotateSprite()
 	pass
 
+func _mayFollow(targetPos):
+	var direction = targetPos - position
+	if direction.angle() - rotation < 30 || direction.angle() - rotation > 30 :
+		_follow(targetPos)
+		_rotateSprite()
+	
 func _follow(targetPos):
 	_direction = targetPos - position
 	pass
 
 func _rotateSprite():
 	rotation = _direction.angle()
+	print("call with angle " + String(_direction.angle()))
 	pass
 
 func onBodyEntered(body) :
@@ -47,8 +55,8 @@ func onBodyEntered(body) :
 		if crystal.isActive():
 			print("zombie entered by active crystal, will die")
 			crystal.die()
-			if (crystal._player):
-				crystal._player.disable()
+			#if (crystal._player):
+				#crystal._player.disable()
 			get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXGrunt
 			get_tree().get_nodes_in_group("vfxplayer")[0].play()
 			_die()
@@ -72,21 +80,30 @@ func onBodyEntered(body) :
 		
 
 func onTriggerEntered(body):
-	if(body.is_in_group("player")) :
-		var player = body
-		if !player.is_disabled :
-			print("zombie follows player")
-			_follow(player.position)
-			_rotateSprite()
+	if _intoTrigger > 0:
+		return
 		
+	_intoTrigger += 1
+	
 	if(body.get_parent().is_in_group("generator")) :
 		var generator = body
 		print("zombie follows generator")
-		_follow(generator.position)
-		_rotateSprite()
+		_mayFollow(generator.position)
+		
+		
+	elif(body.is_in_group("player")) :
+		var player = body
+		if !player.is_disabled :
+			print("zombie follows player")
+			_mayFollow(player.position)
+
  
 func onTriggerExited(body):
-	_follow(_generatorPosition)
+	_intoTrigger -= 1
+	if _intoTrigger == 0 :
+		_follow(_generatorPosition)
+		_rotateSprite()
+
 
 func _die():
 	# todo fx

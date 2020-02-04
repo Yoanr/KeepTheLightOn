@@ -102,7 +102,7 @@ func _setState(newState):
 		
 	if newState == CrystalState.inactive :
 		_state = CrystalState.inactive
-		$Sprite.modulate = Color(1,1,1,0.4)
+		$Sprite.modulate = Color(1,1,1,0.5)
 		# put on inactive layer :
 		set_collision_layer(0)
 		set_collision_layer_bit(7,true)

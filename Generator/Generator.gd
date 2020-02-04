@@ -40,32 +40,36 @@ func _process(delta):
 		hp += refreshGeneratorHp()
 		print("HP = [" + str(hp) + "]")
 	checkGameState()
-	$AnimatedSprite.modulate.a = hp / 100
+	$AnimatedSprite.modulate.a = 0.5 + hp / 200
 
 func setBatteries(batteryId):
 	var position = Vector2(0.0, 0.0)
+	var offset = 0
+	var angle = 0
 	
 	if batteryId == 0:
-		var angle = Vector2(0.0, -1.0)
+		angle = Vector2(0.0, -1.0)
 		position.x = -900.0
 		position.y = 0.0
-		batteries[batteryId].rotate(angle.angle())
+		offset = 0
 	if batteryId == 1:
-		var angle = Vector2(0.0, 1.0)
+		angle = Vector2(0.0, 1.0)
 		position.x = 900.0
 		position.y = 0.0
-		batteries[batteryId].rotate(angle.angle())
+		offset = 5
 	if batteryId == 2:
-		var angle = Vector2(1.0, 0.0)
+		angle = Vector2(1.0, 0.0)
 		position.x = 0.0
 		position.y = -480.0
-		batteries[batteryId].rotate(angle.angle())
+		offset = 9
 	if batteryId == 3:
-		var angle = Vector2(-1.0, 0.0)
+		angle = Vector2(-1.0, 0.0)
 		position.x = 0.0
 		position.y = 420.0 
-		batteries[batteryId].rotate(angle.angle())
+		offset = 13
+	batteries[batteryId].rotate(angle.angle())
 	batteries[batteryId].translate(position)
+	batteries[batteryId]._elapsedTime = offset
 	pass
 	
 func checkGameState() -> int:
@@ -113,13 +117,13 @@ func onBodyEntered(body) :
 
 func accept(crystal) :
 	if crystal.isActive() and crystal.getColor() == color :
-		hp += 5
+		hp += 15
 		changeColor()
 		get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXPVUp
 		get_tree().get_nodes_in_group("vfxplayer")[0].play()
 		crystal.die()
 	else :
-		hp -= 5
+		hp -= 2
 		get_tree().get_nodes_in_group("vfxplayer")[0].stream = SFXPVDown
 		get_tree().get_nodes_in_group("vfxplayer")[0].play()
 		crystal.die()

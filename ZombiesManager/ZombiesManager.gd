@@ -33,14 +33,14 @@ func _ready():
 	# sets value depending on selected difficulty
 	match(difficulty):
 		Difficulty.SWEET :
-			_spawnTime = 4
-			_zombieSpeed = 20
+			_spawnTime = 10
+			_zombieSpeed = 10
 		Difficulty.REGULAR :
-			_spawnTime = 3
-			_zombieSpeed = 40
+			_spawnTime = 8
+			_zombieSpeed = 20
 		Difficulty.SPICY :
-			_spawnTime = 2.5
-			_zombieSpeed = 60
+			_spawnTime = 6
+			_zombieSpeed = 50
 	
 	# to test alone (only needs Generator in scene)
 	#_spawnZombies()

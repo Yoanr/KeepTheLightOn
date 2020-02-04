@@ -25,7 +25,7 @@ func setCrystals(newcrystal):
 	var x = rng.randf_range(200, 1500)
 	var y = rng.randf_range(200, 800)
 	
-	while(x < 1060  && x > 860 && y < 600 && y > 480):
+	while(x < 1070  && x > 850 && y < 610 && y > 470):
 		rng.randomize()
 		x = rng.randf_range(200, 1500)
 		y = rng.randf_range(200, 800)
